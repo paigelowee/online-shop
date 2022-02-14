@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingBag, FaUserAlt } from "react-icons/fa";
 
 const Container = styled.div`
   display: flex;
@@ -39,9 +39,12 @@ function Navbar() {
     <Container>
       <Title>Névé.</Title>
       <Links>
-        <LinkItem>Basket</LinkItem>
-        <LinkItem>Log in</LinkItem>
-        <LinkItem>Sign up</LinkItem>
+        <LinkItem>
+          <FaUserAlt size={24} />
+        </LinkItem>
+        <LinkItem>
+          <FaShoppingBag size={27} />
+        </LinkItem>
       </Links>
     </Container>
   );

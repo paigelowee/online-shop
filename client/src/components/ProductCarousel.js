@@ -5,15 +5,19 @@ import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   height: 60vh;
   width: 100vw;
   background-size: cover !important;
   filter: contrast(92%);
+  justify-content: center;
   opacity: 0.9;
   background: url("https://images.unsplash.com/photo-1577641591369-8317b4ad9bd5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80");
-  justify-content: center;
 `;
+
+const SectionHeading = styled.h1``;
+
 const Carousel = styled.div`
   display: flex;
   margin: 0px 30px;
