@@ -7,8 +7,6 @@ const Container = styled.div`
   padding: 0px 20px;
 `;
 
-const Title = styled.h1``;
-
 const FilterContainer = styled.div`
   display: flex;
   justify-content: end;
@@ -18,6 +16,7 @@ const SearchInput = styled.select`
   padding: 5px;
   color: #082335;
   margin-right: 20px;
+  cursor: pointer;
 `;
 
 const SearchText = styled.h2`
@@ -29,6 +28,7 @@ const SearchText = styled.h2`
 const SortInput = styled.select`
   padding: 5px;
   color: #082335;
+  cursor: pointer;
 `;
 
 const SortText = styled.h2`

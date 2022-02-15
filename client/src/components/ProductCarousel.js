@@ -16,8 +16,6 @@ const Container = styled.div`
   background: url("https://images.unsplash.com/photo-1577641591369-8317b4ad9bd5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80");
 `;
 
-const SectionHeading = styled.h1``;
-
 const Carousel = styled.div`
   display: flex;
   margin: 0px 30px;
@@ -74,7 +72,7 @@ const categories = [
   "Gloves",
 ];
 
-function ProductScroller() {
+function ProductCarousel() {
   const carouselRef = useRef(null);
 
   const scrollTo = (amount) => {
@@ -104,4 +102,4 @@ function ProductScroller() {
   );
 }
 
-export default ProductScroller;
+export default ProductCarousel;

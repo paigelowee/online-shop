@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { FaCartPlus } from "react-icons/fa";
 
 const ProductList = [
   {

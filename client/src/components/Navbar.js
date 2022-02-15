@@ -32,8 +32,6 @@ const LinkItem = styled.div`
   }
 `;
 
-// const Container = styled.div``;
-
 function Navbar() {
   return (
     <Container>

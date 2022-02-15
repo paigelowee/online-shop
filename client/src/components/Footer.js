@@ -6,8 +6,6 @@ import {
   FaFacebook,
   FaPaperPlane,
   FaPlus,
-  FaRegEnvelope,
-  FaPhoneAlt,
 } from "react-icons/fa";
 
 const Container = styled.div`
