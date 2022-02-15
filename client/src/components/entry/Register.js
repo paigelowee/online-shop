@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -59,14 +61,62 @@ const LoginLink = styled.div`
 `;
 
 function Register() {
+  const navigate = useNavigate();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const signup = () => {
+    axios
+      .post("http://localhost:5000/api/auth/register", {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+      })
+      .then((response) => {
+        navigate("/");
+      })
+      .catch((error) => {
+        toast.error(error.response.data);
+      });
+  };
+
   return (
     <Container>
       <Form>
         <Title>Register.</Title>
-        <Input placeholder="Name" onChange={null} />
-        <Input placeholder="Email" onChange={null} />
-        <Input type="password" placeholder="Password" onChange={null} />
-        <Button>Register</Button>
+        <Input
+          placeholder="First name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+        <Input
+          placeholder="Last name"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
+        <Input
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          type="password"
+          value={password}
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Input
+          type="password"
+          value={confirmPassword}
+          placeholder="Confirm password"
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        <Button onClick={() => signup()}>Register</Button>
         <LoginLink as={Link} to="/login">
           Got an account?
         </LoginLink>

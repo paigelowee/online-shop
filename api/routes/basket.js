@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
 router.get("/:userId", authenticateUser, async (req, res) => {
   try {
     const basket = await Basket.findOne({ userId: req.params.userId });
-    if (!basket) res.status(400).json("Basket not found");
+    if (!basket) return res.status(400).json("Basket not found");
     res.status(200).json(basket);
   } catch (err) {
     res.status(500).json(err);

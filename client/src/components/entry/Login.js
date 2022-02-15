@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Container = styled.div`
   display: flex;
@@ -59,13 +61,39 @@ const RegisterLink = styled.div`
 `;
 
 function Login() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const login = () => {
+    axios
+      .post("http://localhost:5000/api/auth/login", {
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        navigate("/");
+      })
+      .catch((error) => {
+        toast.error(error.response.data);
+      });
+  };
   return (
     <Container>
       <Form>
         <Title>Log in.</Title>
-        <Input placeholder="Email" onChange={null} />
-        <Input type="password" placeholder="Password" onChange={null} />
-        <Button>Log in</Button>
+        <Input
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button onClick={() => login()}>Log in</Button>
         <RegisterLink as={Link} to="/register">
           Create an account
         </RegisterLink>

@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
 router.get("/:id", authenticateUser, async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
-    if (!order) res.status(400).json("Order not found");
+    if (!order) return res.status(400).json("Order not found");
     res.status(200).json(order);
   } catch (err) {
     res.status(500).json(err);

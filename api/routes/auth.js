@@ -5,24 +5,35 @@ const jwt = require("jsonwebtoken");
 
 // Register new user
 router.post("/register", async (req, res) => {
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
   const email = req.body.email;
   const password = req.body.password;
-  const username = req.body.username;
-  if (!email || !password || !username) {
-    res.status(400).json("Please ensure all fields are entered");
-  }
+  const confirmPassword = req.body.confirmPassword;
+  if (!email || !password || !firstName || !lastName)
+    return res.status(400).json("Please ensure all fields are entered");
+
+  if (password !== confirmPassword)
+    return res.status(400).json("Passwords do not match");
 
   const newUser = new User({
-    username: username,
+    firstName: firstName,
+    lastName: lastName,
     password: CryptoJS.AES.encrypt(password, process.env.SECRET_KEY).toString(),
     email: email,
   });
 
+  console.log(newUser);
+
   try {
+    console.log("try");
     const addedUser = await newUser.save();
-    res.status(200).json(addedUser);
+    console.log("do?");
+    return res.status(200).json(addedUser);
   } catch (err) {
-    res.status(500).json(err);
+    console.log("crash");
+    console.log(err);
+    return res.status(500).json("Unable to register account");
   }
 });
 
@@ -31,7 +42,7 @@ router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
 
-    if (!user) res.status(401).json("User not found");
+    if (!user) return res.status(401).json("User not found");
 
     var decryptedPassword = CryptoJS.AES.decrypt(
       user.password,
