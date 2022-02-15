@@ -49,7 +49,7 @@ const SocialIcon = styled.div`
   color: white;
   cursor: pointer;
   :hover {
-    color: #445d6d;
+    color: #082335e8;
   }
 `;
 

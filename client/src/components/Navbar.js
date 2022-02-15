@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { FaShoppingBag, FaUserAlt } from "react-icons/fa";
 
 const Container = styled.div`
@@ -10,8 +11,13 @@ const Container = styled.div`
 
 const Title = styled.h1`
   margin: 5px;
+  text-decoration: none;
   font-size: 50px;
+  font-weight: bold;
   color: #082335;
+  :hover {
+    color: #082335e8;
+  }
 `;
 
 const Links = styled.div`
@@ -22,25 +28,27 @@ const Links = styled.div`
   margin-right: 20px;
 `;
 
-const LinkItem = styled.div`
+const LinkItem = styled(Link)`
   margin-left: 50px;
   cursor: pointer;
   font-weight: 600;
   color: #082335;
   :hover {
-    color: #445d6d;
+    color: #082335e8;
   }
 `;
 
 function Navbar() {
   return (
     <Container>
-      <Title>Névé.</Title>
+      <Title as={Link} to="/">
+        Névé.
+      </Title>
       <Links>
-        <LinkItem>
+        <LinkItem as={Link} to="/register">
           <FaUserAlt size={24} />
         </LinkItem>
-        <LinkItem>
+        <LinkItem as={Link} to="/basket">
           <FaShoppingBag size={27} />
         </LinkItem>
       </Links>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const ProductList = [
@@ -66,7 +67,6 @@ const Tile = styled.div`
   width: 300px;
   position: absolute;
   opacity: 0;
-  cursor: pointer;
   backdrop-filter: blur(20px);
   align-items: center;
   display: flex;
@@ -88,6 +88,9 @@ const ButtonPrimary = styled.button`
   font-weight: 400;
   font-size: 17px;
   cursor: pointer;
+  :hover {
+    background-color: #082335e8;
+  }
 `;
 
 const Button = styled.button`
@@ -101,6 +104,10 @@ const Button = styled.button`
   font-weight: 400;
   font-size: 15px;
   cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 function ProductTiles() {
@@ -110,7 +117,9 @@ function ProductTiles() {
         {ProductList.map((p, i) => (
           <ProductContainer>
             <Tile>
-              <Button>View item</Button>
+              <Button as={Link} to="1">
+                View item
+              </Button>
               <ButtonPrimary>Add to cart</ButtonPrimary>
             </Tile>
             <Product image={p.image}></Product>

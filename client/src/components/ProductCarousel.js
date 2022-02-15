@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
-
+import { Link } from "react-router-dom";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
 const Container = styled.div`
@@ -37,6 +37,8 @@ const ProductDiv = styled.div`
 `;
 
 const Product = styled.div`
+  cursor: pointer;
+  text-decoration: none;
   margin: 0px 10px;
   height: 250px;
   display: flex;
@@ -87,7 +89,7 @@ function ProductCarousel() {
         </NavIcon>
         <ProductDiv ref={carouselRef}>
           {categories.map((c, i) => (
-            <Product>
+            <Product as={Link} to="/products">
               <ProductType>
                 <ProductText>{c}</ProductText>
               </ProductType>

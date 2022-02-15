@@ -62,6 +62,9 @@ const ButtonPrimary = styled.button`
   font-weight: 400;
   font-size: 17px;
   cursor: pointer;
+  :hover {
+    background-color: #082335e8;
+  }
 `;
 
 function Product({ product }) {

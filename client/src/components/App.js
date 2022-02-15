@@ -7,6 +7,7 @@ import Home from "./Home";
 import Navbar from "./Navbar";
 import Products from "./Products/Products";
 import Product from "./Products/Product";
+import Basket from "./Basket";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<Product />} />
+        <Route path="/basket" element={<Basket />} />
       </Routes>
       <Footer />
     </>
