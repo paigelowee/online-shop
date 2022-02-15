@@ -8,21 +8,23 @@ import Navbar from "./Navbar";
 import Products from "./Products/Products";
 import Product from "./Products/Product";
 import Basket from "./Basket";
+import WithoutNav from "./WithoutNav";
+import WithNav from "./WithNav";
 
 function App() {
   return (
-    <>
-      <Navbar />
-      <Routes>
-        <Route index element={<Home />} />
+    <Routes>
+      <Route element={<WithoutNav />}>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+      </Route>
+      <Route element={<WithNav />}>
+        <Route index element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<Product />} />
         <Route path="/basket" element={<Basket />} />
-      </Routes>
-      <Footer />
-    </>
+      </Route>
+    </Routes>
   );
 }
 

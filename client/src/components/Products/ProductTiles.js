@@ -43,25 +43,10 @@ const ProductsDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-`;
-
-const ProductContainer = styled.div`
-  position: relative;
-`;
-
-const Product = styled.div`
-  margin: 10px;
-  height: 400px;
-  width: 300px;
-  position: relative;
-  background-size: cover !important;
-  background: url(${(props) => props.image});
-  z-index: -1;
-  cursor: pointer;
+  gap: 20px;
 `;
 
 const Tile = styled.div`
-  margin: 10px;
   height: 90px;
   bottom: 0;
   width: 300px;
@@ -72,10 +57,25 @@ const Tile = styled.div`
   display: flex;
   flex-direction: column;
   transition: transform 0.5s;
-  :hover {
+`;
+
+const ProductContainer = styled.div`
+  position: relative;
+  &:hover ${Tile} {
+    transition: opacity 0.4s ease;
     opacity: 1;
-    z-index: 10000;
   }
+`;
+
+const Product = styled.div`
+  /* margin: 10px; */
+  height: 400px;
+  width: 300px;
+  position: relative;
+  background-size: cover !important;
+  background: url(${(props) => props.image});
+  z-index: -1;
+  cursor: pointer;
 `;
 
 const ButtonPrimary = styled.button`

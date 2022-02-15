@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -13,7 +14,7 @@ const Container = styled.div`
   background: url("https://images.unsplash.com/photo-1577641591369-8317b4ad9bd5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80");
 `;
 const Form = styled.div`
-  width: 25%;
+  width: 35%;
   height: 50%;
   backdrop-filter: blur(20px);
   display: flex;
@@ -51,6 +52,12 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const LoginLink = styled.div`
+  margin: 10px 0px 20px;
+  color: #082335;
+  font-size: small;
+`;
+
 function Register() {
   return (
     <Container>
@@ -60,6 +67,9 @@ function Register() {
         <Input placeholder="Email" onChange={null} />
         <Input type="password" placeholder="Password" onChange={null} />
         <Button>Register</Button>
+        <LoginLink as={Link} to="/login">
+          Got an account?
+        </LoginLink>
       </Form>
     </Container>
   );
