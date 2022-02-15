@@ -26,13 +26,9 @@ router.post("/register", async (req, res) => {
   console.log(newUser);
 
   try {
-    console.log("try");
     const addedUser = await newUser.save();
-    console.log("do?");
     return res.status(200).json(addedUser);
   } catch (err) {
-    console.log("crash");
-    console.log(err);
     return res.status(500).json("Unable to register account");
   }
 });
