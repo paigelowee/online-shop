@@ -1,41 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
-import { toast } from "react-toastify";
-
-const ProductList = [
-  {
-    _id: "1",
-    image:
-      "https://images.unsplash.com/photo-1535813449-9b1b28174821?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHNraXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
-  },
-  {
-    _id: "1",
-    image:
-      "https://images.unsplash.com/photo-1535813449-9b1b28174821?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHNraXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
-  },
-  {
-    _id: "1",
-    image:
-      "https://images.unsplash.com/photo-1535813449-9b1b28174821?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHNraXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
-  },
-  {
-    _id: "1",
-    image:
-      "https://images.unsplash.com/photo-1535813449-9b1b28174821?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHNraXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
-  },
-  {
-    _id: "1",
-    image:
-      "https://images.unsplash.com/photo-1535813449-9b1b28174821?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHNraXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
-  },
-  {
-    _id: "1",
-    image:
-      "https://images.unsplash.com/photo-1535813449-9b1b28174821?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHNraXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
-  },
-];
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../redux/basketSlice";
 
 const Container = styled.div`
   margin: 20px 0px;
@@ -70,7 +37,6 @@ const ProductContainer = styled.div`
 `;
 
 const Product = styled.div`
-  /* margin: 10px; */
   height: 400px;
   width: 300px;
   position: relative;
@@ -113,8 +79,11 @@ const Button = styled.button`
 `;
 
 function ProductTiles({ products }) {
+  const dispatch = useDispatch();
   const addToCart = (product) => {
-    // axios.post
+    dispatch(
+      addProduct({ product: product, quantity: 1, price: product.price })
+    );
   };
 
   return (
@@ -127,7 +96,7 @@ function ProductTiles({ products }) {
                 View item
               </Button>
               <ButtonPrimary onClick={() => addToCart(p)}>
-                Add to cart
+                Add to basket
               </ButtonPrimary>
             </Tile>
             <Product image={p.image}></Product>

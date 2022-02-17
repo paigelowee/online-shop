@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   display: flex;
@@ -91,28 +92,30 @@ const ContinueShopping = styled.div`
 `;
 
 function Basket() {
+  const basket = useSelector((state) => state.basket);
+
   return (
     <Container>
       <Details>
-        <Item>
-          <Image
-            image={
-              "https://images.unsplash.com/photo-1535813449-9b1b28174821?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHNraXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60"
-            }
-          />
-          <ItemDetails>
-            <ItemName>Men apres ski goggles</ItemName>
-            <ItemPrice>£24.99</ItemPrice>
-            <Quantity></Quantity>
-          </ItemDetails>
-        </Item>
-        <Divider />
+        {basket.products?.map((p) => (
+          <>
+            <Item>
+              <Image image={p.image} />
+              <ItemDetails>
+                <ItemName>{p.name}</ItemName>
+                <ItemPrice>£{p.price}</ItemPrice>
+                <Quantity></Quantity>
+              </ItemDetails>
+            </Item>
+            <Divider />
+          </>
+        ))}
       </Details>
       <Summary>
         <SummaryTitle>Order Summary</SummaryTitle>
         <TotalDiv>
           <TotalHeading>Total</TotalHeading>
-          <OrderTotal>£24.99</OrderTotal>
+          <OrderTotal>£{basket.total}</OrderTotal>
         </TotalDiv>
         <ButtonPrimary>Checkout</ButtonPrimary>
         <ContinueShopping as={Link} to="/products">

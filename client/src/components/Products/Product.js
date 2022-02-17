@@ -79,7 +79,6 @@ const ButtonPrimary = styled.button`
 function Product() {
   const params = useParams();
   const [product, setProduct] = useState(null);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -92,7 +91,9 @@ function Product() {
   }, [params.id]);
 
   const addToCart = () => {
-    dispatch(addProduct(product));
+    dispatch(
+      addProduct({ product: product, quantity: 1, price: product.price })
+    );
   };
 
   if (!product) return null;

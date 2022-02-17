@@ -5,10 +5,12 @@ const basketSlice = createSlice({
   initialState: {
     products: [],
     quantity: 0,
-    price: 0,
+    total: 0,
   },
   reducers: {
     addProduct: (state, action) => {
+      console.log(action.payload);
+
       state.quantity += 1;
       state.products.push(action.payload.product);
       state.total += action.payload.price;

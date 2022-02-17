@@ -55,7 +55,7 @@ const Badge = styled.div`
 `;
 
 function Navbar() {
-  const basketQuantity = useSelector((state) => basketQuantity);
+  const basketQuantity = useSelector((state) => state.basket.quantity);
 
   return (
     <Container>
