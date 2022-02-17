@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FaShoppingBag, FaUserAlt } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   display: flex;
@@ -33,12 +34,29 @@ const LinkItem = styled(Link)`
   cursor: pointer;
   font-weight: 600;
   color: #082335;
+  position: relative;
   :hover {
     color: #082335e8;
   }
 `;
 
+const Badge = styled.div`
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: cadetblue;
+  color: white;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  z-index: -1;
+  margin-left: 20px;
+  margin-top: -10px;
+`;
+
 function Navbar() {
+  const basketQuantity = useSelector((state) => basketQuantity);
+
   return (
     <Container>
       <Title as={Link} to="/">
@@ -49,6 +67,7 @@ function Navbar() {
           <FaUserAlt size={24} />
         </LinkItem>
         <LinkItem as={Link} to="/basket">
+          {basketQuantity > 0 && <Badge>{basketQuantity}</Badge>}
           <FaShoppingBag size={27} />
         </LinkItem>
       </Links>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import axios from "axios";
+import { unauthenticatedRequest } from "../../requests";
 
 const Container = styled.div`
   display: flex;
@@ -69,8 +69,8 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const signup = () => {
-    axios
-      .post("http://localhost:5000/api/auth/register", {
+    unauthenticatedRequest
+      .post("auth/register", {
         firstName: firstName,
         lastName: lastName,
         email: email,

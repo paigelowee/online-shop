@@ -1,8 +1,8 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ProductTiles from "./ProductTiles";
 import constants from "../../constants";
+import { unauthenticatedRequest } from "../../requests";
 
 const Container = styled.div`
   margin-top: 10px;
@@ -62,8 +62,8 @@ function Products() {
     }&sort=${sort}`;
 
     console.log(queryParams);
-    axios
-      .get(`http://localhost:5000/api/products${queryParams}`)
+    unauthenticatedRequest
+      .get(`products${queryParams}`)
       .then((res) => {
         setProducts(res.data);
       })

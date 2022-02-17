@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { unauthenticatedRequest } from "../../requests";
 
 const Container = styled.div`
   display: flex;
@@ -66,8 +66,8 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const login = () => {
-    axios
-      .post("http://localhost:5000/api/auth/login", {
+    unauthenticatedRequest
+      .post("auth/login", {
         email: email,
         password: password,
       })

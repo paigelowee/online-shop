@@ -1,7 +1,9 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
+import { unauthenticatedRequest } from "../../requests";
+import { addProduct } from "../../redux/basketSlice";
+import { useDispatch } from "react-redux";
 
 const Container = styled.div`
   display: flex;
@@ -78,14 +80,20 @@ function Product() {
   const params = useParams();
   const [product, setProduct] = useState(null);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/products/${params.id}`)
+    unauthenticatedRequest
+      .get(`products/${params.id}`)
       .then((res) => {
         setProduct(res.data);
       })
       .catch((err) => console.log(err));
   }, [params.id]);
+
+  const addToCart = () => {
+    dispatch(addProduct(product));
+  };
 
   if (!product) return null;
   console.log(product.image);
@@ -104,7 +112,7 @@ function Product() {
           ))}
         </SizeInput>
         <DeliveryInfo></DeliveryInfo>
-        <ButtonPrimary>Add to bag</ButtonPrimary>
+        <ButtonPrimary onClick={() => addToCart()}>Add to bag</ButtonPrimary>
       </ContentDiv>
     </Container>
   );
