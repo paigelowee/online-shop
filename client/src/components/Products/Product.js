@@ -1,5 +1,7 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -43,6 +45,11 @@ const Title = styled.h5`
   color: #082335;
 `;
 
+const Description = styled.p`
+  margin-bottom: 5px;
+  color: #082335;
+`;
+
 const Divider = styled.div`
   margin-top: 20px;
   border-bottom: 1px solid #b6adad7a;
@@ -67,23 +74,34 @@ const ButtonPrimary = styled.button`
   }
 `;
 
-function Product({ product }) {
+function Product() {
+  const params = useParams();
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/api/products/${params.id}`)
+      .then((res) => {
+        setProduct(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, [params.id]);
+
+  if (!product) return null;
+  console.log(product.image);
   return (
     <Container>
-      <ImageDiv
-        image={
-          "https://images.unsplash.com/photo-1535813449-9b1b28174821?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHNraXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60"
-        }
-      />
+      <ImageDiv image={product?.image} />
       <ContentDiv>
-        <Title>Mens ski goggles apres elite</Title>
-        <Price>£24.99</Price>
+        <Title>{product.name}</Title>
+        <Description>{product.name}</Description>
+        <Price>£{product.price}</Price>
         <Divider />
         <SizeText>Size</SizeText>
         <SizeInput name="size" id="size" onChange={null}>
-          <option value="s">S</option>
-          <option value="m">M</option>
-          <option value="l">L</option>
+          {product?.size?.map((size) => (
+            <option value={size}>{size}</option>
+          ))}
         </SizeInput>
         <DeliveryInfo></DeliveryInfo>
         <ButtonPrimary>Add to bag</ButtonPrimary>

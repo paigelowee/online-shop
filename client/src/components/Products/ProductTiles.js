@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const ProductList = [
   {
@@ -110,17 +112,23 @@ const Button = styled.button`
   align-items: center;
 `;
 
-function ProductTiles() {
+function ProductTiles({ products }) {
+  const addToCart = (product) => {
+    // axios.post
+  };
+
   return (
     <Container>
       <ProductsDiv>
-        {ProductList.map((p, i) => (
+        {products.map((p, i) => (
           <ProductContainer>
             <Tile>
-              <Button as={Link} to="1">
+              <Button as={Link} to={`${p._id}`}>
                 View item
               </Button>
-              <ButtonPrimary>Add to cart</ButtonPrimary>
+              <ButtonPrimary onClick={() => addToCart(p)}>
+                Add to cart
+              </ButtonPrimary>
             </Tile>
             <Product image={p.image}></Product>
           </ProductContainer>

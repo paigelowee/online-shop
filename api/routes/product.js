@@ -4,13 +4,13 @@ const Product = require("../models/Product");
 const { authenticateAdmin, authenticateUser } = require("../utils");
 
 // Create product
-router.post("/", authenticateAdmin, async (req, res) => {
+router.post("/", async (req, res) => {
   const newProduct = new Product(req.body);
   try {
     await newProduct.save();
-    res.status(200).json(newProduct);
+    return res.status(200).json(newProduct);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
@@ -26,11 +26,38 @@ router.get("/:id", async (req, res) => {
 });
 
 // Get products
-router.get("/", authenticateUser, async (req, res) => {
-  // const sort = req.query.sort
-  // const category = req.query.category
+router.get("/", async (req, res) => {
+  const sort = req.query.sort;
+  const category = req.query.category;
+  const colour = req.query.colour;
+
+  // sort products
+  let product_sort = {};
+  if (sort) {
+    if (sort === "asc") {
+      product_sort = { price: 1 };
+    } else if (sort === "desc") {
+      product_sort = { price: -1 };
+    } else if (sort === "newest") {
+      product_sort = { createdAt: 1 };
+    }
+  }
+
+  // filter products by colour/category
+  let product_query = {};
+  let query = [];
+  if (colour) {
+    query.push({ colour: { $in: colour } });
+  }
+  if (category) {
+    query.push({ category: { $in: category } });
+  }
+
+  if (query.length > 0) {
+    product_query["$and"] = query;
+  }
   try {
-    const products = await Product.find();
+    const products = await Product.find(product_query).sort(product_sort);
     res.status(200).json(products);
   } catch (err) {
     res.status(500).json(err);
@@ -38,7 +65,7 @@ router.get("/", authenticateUser, async (req, res) => {
 });
 
 // Update product
-router.put("/:id", authenticateAdmin, async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
