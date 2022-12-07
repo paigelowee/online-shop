@@ -9,11 +9,24 @@ const basketSlice = createSlice({
   },
   reducers: {
     addProduct: (state, action) => {
-      console.log(action.payload);
-
       state.quantity += 1;
-      state.products.push(action.payload.product);
       state.total += action.payload.price;
+
+      let product = state.products.find(
+        (p) => p._id === action.payload.product._id
+      );
+      const productIndex = state.products.findIndex(
+        (p) => p._id === action.payload.product._id
+      );
+      if (product) {
+        product.quantity += 1;
+        state.products.splice(productIndex, 1);
+        state.products.splice(productIndex, 0, product);
+      } else {
+        const initial_quantity = { quantity: 1 };
+        product = { ...action.payload.product, initial_quantity };
+        state.products.push(product);
+      }
     },
   },
 });

@@ -53,21 +53,49 @@ const Summary = styled.div`
   padding: 15px;
 `;
 
-const TotalDiv = styled.div`
+const CostDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  padding: 5px;
 `;
+
 const SummaryTitle = styled.h2`
   color: #082335;
 `;
 
-const TotalHeading = styled.p`
-  font-weight: bold;
+const CostHeading = styled.p`
+  font-weight: 400;
   color: #082335;
 `;
 
-const OrderTotal = styled.p``;
+const CostPrice = styled.p``;
+
+const TotalHeading = styled.p`
+  font-weight: bold;
+  font-size: large;
+  color: #082335;
+`;
+
+const TotalPrice = styled.p`
+  font-size: large;
+  font-weight: bold;
+`;
+
+const FreeShippingDiv = styled.div`
+  margin: 10px 0px;
+  border: 1px solid #78787836;
+  padding: 20px 10px;
+  text-align: center;
+  .heading {
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #082335;
+  }
+  .subheading {
+    font-weight: 200;
+    color: #082335;
+  }
+`;
 
 const ButtonPrimary = styled.button`
   padding: 7px;
@@ -78,6 +106,7 @@ const ButtonPrimary = styled.button`
   border: none;
   font-weight: 400;
   font-size: 17px;
+  margin-top: 10px;
   cursor: pointer;
   :hover {
     background-color: #082335e8;
@@ -88,12 +117,14 @@ const ContinueShopping = styled.div`
   justify-content: center;
   margin: 10px 0px 20px;
   color: #082335;
+  color: #082335;
   font-size: medium;
 `;
 
 function Basket() {
   const basket = useSelector((state) => state.basket);
 
+  const qualifyForFreeDelivery = 40 - basket.total < 0;
   return (
     <Container>
       <Details>
@@ -113,10 +144,32 @@ function Basket() {
       </Details>
       <Summary>
         <SummaryTitle>Order Summary</SummaryTitle>
-        <TotalDiv>
-          <TotalHeading>Total</TotalHeading>
-          <OrderTotal>£{basket.total}</OrderTotal>
-        </TotalDiv>
+        <div style={{ margin: "10px 0px 15px" }}>
+          <CostDiv>
+            <CostHeading>Subtotal</CostHeading>
+            <CostPrice>£{basket.total}</CostPrice>
+          </CostDiv>
+          <CostDiv>
+            <CostHeading>Estimated Shipping</CostHeading>
+            <CostPrice>£{qualifyForFreeDelivery ? 0 : 6.99}</CostPrice>
+          </CostDiv>
+          <CostDiv style={{ marginTop: 10 }}>
+            <TotalHeading>Total</TotalHeading>
+            <TotalPrice>
+              £{qualifyForFreeDelivery ? basket.total : basket.total + 6.99}
+            </TotalPrice>
+          </CostDiv>
+        </div>
+        <FreeShippingDiv>
+          <p className="heading">Free delivery on all orders over £40</p>
+          <p className="subheading">
+            {!qualifyForFreeDelivery
+              ? `Spend £${Math.round(
+                  40 - basket.total
+                )} to qualify for free shipping`
+              : "Free shipping applied"}
+          </p>
+        </FreeShippingDiv>
         <ButtonPrimary>Checkout</ButtonPrimary>
         <ContinueShopping as={Link} to="/products">
           Continue shopping
